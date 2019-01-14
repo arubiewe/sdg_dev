@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('todogoals');
 });
+
+Auth::routes();
+
+
+Route::resource('todogoals','TodoGoalController');
