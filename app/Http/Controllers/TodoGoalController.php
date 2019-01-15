@@ -25,25 +25,28 @@ class TodoGoalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    try{
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|required',
-            'due_date' => 'required|min:4',
-            'core_value' => 'required',
-            'priority' => 'required',
-            'goal_reason' => 'required'
-        ]);
-        TodoGoal::create([
-            'title' => $request->title,
-            'due_date' => $request->due_date,
-            'core_value' => $request->core_value,
-            'priority' => $request->priority,
-            'goal_reason' => $request->goal_reason,
-            'user_id' => auth()->user()->id
-        ]);
-        return back()->with('success', 'Todo created successfully!');
-    }catch (\Exception $ex){
-        return back()->with('error', $ex->getMessage())->withInput();
+    public function store(Request $request)
+    {
+        try{
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|required',
+                'due_date' => 'required|min:4',
+                'core_value' => 'required',
+                'priority' => 'required',
+                'goal_reason' => 'required'
+            ]);
+            TodoGoal::create([
+                'title' => $request->title,
+                'due_date' => $request->due_date,
+                'core_value' => $request->core_value,
+                'priority' => $request->priority,
+                'goal_reason' => $request->goal_reason,
+                'user_id' => auth()->user()->id
+            ]);
+            return back()->with('success', 'Todo created successfully!');
+        }catch (\Exception $ex){
+            return back()->with('error', $ex->getMessage())->withInput();
+        }
     }
 
     /**
