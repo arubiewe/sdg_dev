@@ -14,6 +14,7 @@ class TodoGoalController extends Controller
      */
     public function index()
     {
+         $result = Auth::user()->todogoals()->get();
         //
     }
 

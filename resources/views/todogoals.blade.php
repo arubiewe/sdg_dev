@@ -117,7 +117,7 @@
     </div>
 <div class="form-row">
     <div class="form-group col-md-8">
-      <label for="reason">What do you want to achieve in this goal:</label>
+      <label for="reason">What do you want too achieve in this goal:</label>
       <textarea class="form-control" id="reason" name="reason" placeholder="What do you want to achieve"></textarea>
     </div>
         
