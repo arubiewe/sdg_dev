@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Validator;
 
 class TodoGoalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +20,7 @@ class TodoGoalController extends Controller
     public function index()
     {
         $my_todos = TodoGoal::where('user_id', auth()->user()->id)->get();
-        return view('todo.all', compact('my_todos'));
+        return view('todogoals', compact('my_todos'));
     }
 
     /**
@@ -30,17 +34,18 @@ class TodoGoalController extends Controller
         try{
             $validator = Validator::make($request->all(), [
                 'title' => 'required|required',
-                'due_date' => 'required|min:4',
-                'core_value' => 'required',
+                'duedate' => 'required',
+                'corevalues' => 'required',
+                'magnitude' => 'required',
                 'priority' => 'required',
-                'goal_reason' => 'required'
+                'reason' =>'required'
             ]);
             TodoGoal::create([
                 'title' => $request->title,
-                'due_date' => $request->due_date,
-                'core_value' => $request->core_value,
+                'due_date' => $request->duedate,
+                'core_value' => $request->corevalues,
                 'priority' => $request->priority,
-                'goal_reason' => $request->goal_reason,
+                'goal_reason' => $request->reason,
                 'user_id' => auth()->user()->id
             ]);
             return back()->with('success', 'Todo created successfully!');
