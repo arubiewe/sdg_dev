@@ -16,13 +16,14 @@
 
 
 Route::get('/', function () {
-    return view( 'todogoals');
+    return view( 'welcome');
 });
 
 Auth::routes();
+Route::get('logout', 'UserController@logout');
 
 
-Route::resource('todogoals','TodoGoalController');
+Route::resource('todogoals','TodoGoalController')->middleware('auth');
 
 
 

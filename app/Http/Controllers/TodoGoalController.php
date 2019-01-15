@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\TodoGoal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TodoGoalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,18 +19,8 @@ class TodoGoalController extends Controller
      */
     public function index()
     {
-         $result = Auth::user()->todogoals()->get();
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $my_todos = TodoGoal::where('user_id', auth()->user()->id)->get();
+        return view('todogoals', compact('my_todos'));
     }
 
     /**
@@ -36,7 +31,27 @@ class TodoGoalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|required',
+                'duedate' => 'required',
+                'corevalues' => 'required',
+                'magnitude' => 'required',
+                'priority' => 'required',
+                'reason' =>'required'
+            ]);
+            TodoGoal::create([
+                'title' => $request->title,
+                'due_date' => $request->duedate,
+                'core_value' => $request->corevalues,
+                'priority' => $request->priority,
+                'goal_reason' => $request->reason,
+                'user_id' => auth()->user()->id
+            ]);
+            return back()->with('success', 'Todo created successfully!');
+        }catch (\Exception $ex){
+            return back()->with('error', $ex->getMessage())->withInput();
+        }
     }
 
     /**
