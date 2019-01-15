@@ -11,11 +11,19 @@
 |
 */
 
+
+
+
+
 Route::get('/', function () {
-    return view('todogoals');
+    return view( 'todogoals');
 });
 
 Auth::routes();
 
 
 Route::resource('todogoals','TodoGoalController');
+
+
+
+Route::get('/home', 'HomeController@index')->name('home');
