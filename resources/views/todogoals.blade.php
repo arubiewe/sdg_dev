@@ -90,8 +90,11 @@
                </thead>
                <tbody>
                   @forelse($my_todos as $todo)
+                     
                      <tr>
+
                         <th scope="row">{{$loop->iteration}}</th>
+                        <button type="button" class="btn btn-primary">Edit</button>
                         <td>{{$todo->title}}</td>
                         <td>{{ date("M d, Y",strtotime($todo->due_date)) }}</td>
                         <td>{{$todo->core_value}}</td>
