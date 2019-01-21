@@ -86,6 +86,7 @@
                      <th scope="col">Priority</th>
                      <th scope="col">Reason</th>
                      <th scope="col">Created</th>
+                     <th scope="col">Action</th>
                   </tr>
                </thead>
                <tbody>
@@ -94,13 +95,13 @@
                      <tr>
 
                         <th scope="row">{{$loop->iteration}}</th>
-                        <button type="button" class="btn btn-primary">Edit</button>
                         <td>{{$todo->title}}</td>
                         <td>{{ date("M d, Y",strtotime($todo->due_date)) }}</td>
                         <td>{{$todo->core_value}}</td>
                         <td><span @if($todo->priority == "Medium") class="badge badge-info" @elseif($todo->priority == "Low") class="badge badge-danger" @elseif($todo->priority == "High") class="badge badge-success"  @endif >{{$todo->priority}}</span></td>
                         <td>{{$todo->goal_reason}}</td>
                         <td>{{ date("M d, Y",strtotime($todo->created_at)) }}</td>
+                        <td><a href="" class="btn btn-primary btn-sm">Edit</a></td>
                      </tr>
                   @empty
                      <tr>
