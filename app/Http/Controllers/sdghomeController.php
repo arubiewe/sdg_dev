@@ -11,4 +11,7 @@ class sdghomeController extends Controller
     {
         return view('sdghome');
     }
+
+
+    
 }

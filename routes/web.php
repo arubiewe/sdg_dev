@@ -34,6 +34,8 @@ Auth::routes();
 Route::get('logout', 'UserController@logout');
 
 Route::get('/sdghome', 'sdghomeController@index');
+Route::get('/editgoal/{id}', 'TodoGoalController@edit');
+Route::get('/update', 'TodoGoalController@update');
 
 
 Route::resource('todogoals','TodoGoalController')->middleware('auth');
@@ -44,3 +46,5 @@ Route::resource('todogoals','TodoGoalController')->middleware('auth');
 // Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/sdghome', 'sdghomeController@index')->name('sdghome');
+
+

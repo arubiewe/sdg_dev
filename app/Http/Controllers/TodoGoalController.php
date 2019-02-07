@@ -71,9 +71,19 @@ class TodoGoalController extends Controller
      * @param  \App\TodoGoal  $todoGoal
      * @return \Illuminate\Http\Response
      */
-    public function edit(TodoGoal $todoGoal)
+    public function edit(TodoGoal $todoGoal, $id)
+     //public function edit($id)
     {
-        //
+         //$my_todos = TodoGoal::where('user_id', auth()->user()->id)->get();
+        $my_todos = TodoGoal::find($id);
+
+        $all_todos = TodoGoal::where('user_id', auth()->user()->id)->get();
+       // return view('editgoal', compact('my_todos'));
+        //dd($my_todos);
+        return view('editgoal', compact('my_todos', 'all_todos'));
+         //return view('editgoal');
+
+         
     }
 
     /**
@@ -83,8 +93,41 @@ class TodoGoalController extends Controller
      * @param  \App\TodoGoal  $todoGoal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TodoGoal $todoGoal)
+    public function update(Request $request, TodoGoal $todoGoal, $id)
     {
+
+        try{
+            $validator = Validator::make($request->all(), [
+               // $request->validate([
+                'title' => 'required|required',
+                'duedate' => 'required',
+                'corevalues' => 'required',
+               // 'magnitude' => 'required',
+                'priority' => 'required',
+                'reason' =>'required'
+            ]);
+
+            //$my_todos = TodoGoal::find($id);
+            $all_todos = TodoGoal::where('user_id', auth()->user()->id)->get();
+            $all_todos->title=$request->get('title');
+            $all_todos->duedate=$request->get('duedate');
+            $all_todos->corevalues=$request->get('corevalues');
+            //$my_todos->magnitude=$request->get('magnitude');
+            $all_todos->priority=$request->get('priority');
+            $all_todos->reason=$request->get('reason');
+            dd($all_todos);
+           // $all_todos->save();
+            return redirect()->route('/todogoals')->with('Success','Biodata Updated');
+
+
+
+        }catch (\Exception $ex){
+            return back()->with('error', $ex->getMessage())->withInput();
+        }
+
+
+
+
         //
     }
 
