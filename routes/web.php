@@ -15,16 +15,32 @@
 
 
 
+// Route::get('/', function () {
+//     return view( 'welcome');
+// });
+
 Route::get('/', function () {
-    return view( 'welcome');
+    return view( 'sdghome');
 });
 
+
+
+
 Auth::routes();
+
+
+
+
 Route::get('logout', 'UserController@logout');
+
+Route::get('/sdghome', 'sdghomeController@index');
 
 
 Route::resource('todogoals','TodoGoalController')->middleware('auth');
 
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/sdghome', 'sdghomeController@index')->name('sdghome');

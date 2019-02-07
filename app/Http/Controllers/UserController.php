@@ -9,6 +9,6 @@ class UserController extends Controller
     public function logout()
     {
         auth()->logout();
-        return redirect('/')->with('success', 'Goodbye!');
+        return redirect('/login')->with('success', 'Goodbye!');
     }
 }
