@@ -71,9 +71,10 @@ class TodoGoalController extends Controller
      * @param  \App\TodoGoal  $todoGoal
      * @return \Illuminate\Http\Response
      */
-    public function edit(TodoGoal $todoGoal, $id)
+    public function edit(Request $request, TodoGoal $todoGoal, $id)
      //public function edit($id)
     {
+        dd($request->all());
          //$my_todos = TodoGoal::where('user_id', auth()->user()->id)->get();
         $my_todos = TodoGoal::find($id);
 

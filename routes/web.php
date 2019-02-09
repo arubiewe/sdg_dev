@@ -35,7 +35,7 @@ Route::get('logout', 'UserController@logout');
 
 Route::get('/sdghome', 'sdghomeController@index');
 Route::get('/editgoal/{id}', 'TodoGoalController@edit');
-Route::get('/update', 'TodoGoalController@update');
+Route::post('/update', 'TodoGoalController@update');
 
 
 Route::resource('todogoals','TodoGoalController')->middleware('auth');
