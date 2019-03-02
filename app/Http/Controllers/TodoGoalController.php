@@ -74,9 +74,9 @@ class TodoGoalController extends Controller
     public function edit(Request $request, TodoGoal $todoGoal, $id)
      //public function edit($id)
     {
-        dd($request->all());
          //$my_todos = TodoGoal::where('user_id', auth()->user()->id)->get();
         $my_todos = TodoGoal::find($id);
+        // return response()->json(['data' => $single_todo]);
 
         $all_todos = TodoGoal::where('user_id', auth()->user()->id)->get();
        // return view('editgoal', compact('my_todos'));
@@ -94,9 +94,9 @@ class TodoGoalController extends Controller
      * @param  \App\TodoGoal  $todoGoal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TodoGoal $todoGoal, $id)
+    public function update(Request $request)
     {
-
+        
         try{
             $validator = Validator::make($request->all(), [
                // $request->validate([
@@ -108,18 +108,20 @@ class TodoGoalController extends Controller
                 'reason' =>'required'
             ]);
 
-            //$my_todos = TodoGoal::find($id);
-            $all_todos = TodoGoal::where('user_id', auth()->user()->id)->get();
-            $all_todos->title=$request->get('title');
-            $all_todos->duedate=$request->get('duedate');
-            $all_todos->corevalues=$request->get('corevalues');
-            //$my_todos->magnitude=$request->get('magnitude');
-            $all_todos->priority=$request->get('priority');
-            $all_todos->reason=$request->get('reason');
-            dd($all_todos);
-           // $all_todos->save();
-            return redirect()->route('/todogoals')->with('Success','Biodata Updated');
 
+            $my_todos = TodoGoal::find($request->goal_id);
+            //return $my_todos;
+            //$all_todos = TodoGoal::where('user_id', auth()->user()->id)->get();
+            $my_todos->title =$request->title;
+            $my_todos->due_date =$request->duedate;
+            $my_todos->core_value =$request->corevalues;
+            //$my_todos->magnitude=$request->get('magnitude');
+            $my_todos->priority =$request->priority;
+            $my_todos->goal_reason =$request->reason;
+            
+            if($my_todos->update()){
+                return redirect()->back()->with('success','Biodata Updated');
+            }
 
 
         }catch (\Exception $ex){

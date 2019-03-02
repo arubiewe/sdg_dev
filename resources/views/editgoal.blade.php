@@ -2,7 +2,6 @@
 
    @section('content')
 
-
 <div class="container">
          <div class="row" style="margin-top:10%;">
             
@@ -22,7 +21,7 @@
                @endif
                <form method = "POST" action=" {{url('/update')}} ">
                      {{ csrf_field() }}
-                     <input type="hidden" name="goal_id" value="$my_todos->id">
+                     <input type="hidden" name="goal_id" value="{{ $my_todos->id }}">
                      <div class="form-group">
                         <label for="name">Name:</label>
                         <input type="text" class="form-control" id="name" name="title" placeholder="Name" value="{{$my_todos['title']}}">
